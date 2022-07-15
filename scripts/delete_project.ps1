@@ -27,11 +27,11 @@ try {
     if ($null -eq $ProjectsArray -or $null -eq $ProjectsArray[0]) {
         @{
             "projects" =  @()
-        } | ConvertTo-Json -Depth 100 > project.json
+        } | ConvertTo-Json -Depth 100 > config/project.json
     } else {
         @{
             "projects" =  @($ProjectsArray)
-        } | ConvertTo-Json -Depth 100 > project.json
+        } | ConvertTo-Json -Depth 100 > config/project.json
     }
 } finally {
   $prevPwd | Set-Location

@@ -73,11 +73,11 @@ $(($Heads | % {
     if ($null -eq $ProjectsArray -or $null -eq $ProjectsArray[0]) {
         ConvertTo-Json ([PSCustomObject]@{
             "projects" =  @($Created)
-        })  -Depth 100 > project.json
+        })  -Depth 100 > config/project.json
     } else {
         ConvertTo-Json ([PSCustomObject]@{
             "projects" =  @($ProjectsArray) + $Created
-        })  -Depth 100 > project.json
+        })  -Depth 100 > config/project.json
     }
 } finally {
   $prevPwd | Set-Location

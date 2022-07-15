@@ -11,13 +11,13 @@ try {
     Set-Location ($base.Fullname)
 
 
-    if (!(Test-Path "project.json") -or $Force) {
+    if (!(Test-Path "config/project.json") -or $Force) {
         @{
             "projects" = @()
-        } | ConvertTo-Json > project.json
+        } | ConvertTo-Json > config/project.json
     }
 
-    return Get-Content .\project.json | ConvertFrom-Json
+    return Get-Content config/project.json | ConvertFrom-Json
 } finally {
   $prevPwd | Set-Location
 }

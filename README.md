@@ -44,10 +44,11 @@ Config file to store the projects.
 
 ## Scripts 💻
 
-- `list_project.ps1`: Print a list of the projects
+- `list_project.ps1`: Print a list of the projects.
 - `update_project.ps1 -Id "user/repo" (-Editor "text-editor-cmd")`: Create or update a project, will open a file with an editor to select which branch to sync.
-- `delete_project.ps1 -Id "user/repo"`: Delete a project
-- `get_project.ps1 -Id "user/repo"`: Get a project
+- `delete_project.ps1 -Id "user/repo"`: Delete a project.
+- `get_project.ps1 -Id "user/repo"`: Get a project.
+- `update_sync_commit.ps1 (-Editor "text-editor-cmd") (-Message "commit message")`: Set the sync commit message.
 - `init.ps1`: Init the project.json file, done by default with the other scripts.
 
 ## Sync process 🚀
