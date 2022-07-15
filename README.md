@@ -16,14 +16,15 @@ Project to test/sync ci to all my mods
 </div>
 
 - [Minecraft CI](#minecraft-ci)
-  - [`project.json` schema](#projectjson-schema)
-  - [Scripts](#scripts)
+  - [`project.json` schema 📘](#projectjson-schema-)
+  - [Scripts 💻](#scripts-)
+  - [Sync process 🚀](#sync-process-)
 
 # Minecraft CI
 
 I'm a Powershell user, so my scripts are with [Powershell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7).
 
-## `project.json` schema
+## `project.json` schema 📘
 
 Config file to store the projects.
 
@@ -41,10 +42,14 @@ Config file to store the projects.
 }
 ```
 
-## Scripts
+## Scripts 💻
 
 - `list_project.ps1`: Print a list of the projects
 - `update_project.ps1 -Id "user/repo" (-Editor "text-editor-cmd")`: Create or update a project, will open a file with an editor to select which branch to sync.
 - `delete_project.ps1 -Id "user/repo"`: Delete a project
 - `get_project.ps1 -Id "user/repo"`: Get a project
 - `init.ps1`: Init the project.json file, done by default with the other scripts.
+
+## Sync process 🚀
+
+all files in the `common.github` directory will be sync into the branches/projects with one commit with the message described in `sync_commit_message.txt`.
