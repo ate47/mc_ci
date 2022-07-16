@@ -17,15 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: ⚙️ Set git values
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-          git config --global user.password ${{ secrets.GH_PAT }}
       - name: 🔃 Sync
         shell: pwsh
-        run: "scripts/sync.ps1 -IKnowWhatImDoing -File ${{ inputs.syncFile }}"
-      - name: 🌵 Clean
-        if: always()
-        run: |
-          git config --global user.password ""
+        run: "scripts/sync.ps1 -IKnowWhatImDoing -File ${{ inputs.syncFile }} -GitUser 'github-actions' -GitMail 'github-actions@github.com' -GitPassword '${{ secrets.GH_PAT }}' -GitPushUser '${{ secrets.GH_USERNAME }}'"
