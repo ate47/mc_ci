@@ -21,8 +21,8 @@ jobs:
           token: ${{ secrets.GH_PAT }}
       - name: Set bot values ⚙️
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
       - name: Sync 🔃
         shell: pwsh
         run: "scripts/sync.ps1 -IKnowWhatImDoing -File ${{ inputs.syncFile }}"

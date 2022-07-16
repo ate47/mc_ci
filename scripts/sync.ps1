@@ -54,7 +54,7 @@ try {
                 Write-Host "$($emojis.construction) ---- Checkout to branch $Branch"
                 # checkout the branch and reset to it
                 git checkout $Branch
-                git reset -hard
+                git reset --hard
                 Write-Host "$($emojis.fire) ------ Remove .github directory"
                 Remove-Item -Force -Recurse ".github"
                 Copy-Item $SyncDir ".github" -Recurse
