@@ -72,8 +72,8 @@ try {
             Write-Host "-------------------------------------------"
         } finally {
             # clear space
-            Remove-Item -Force -Recurse $dir
             $prevDirPwd | Set-Location
+            Remove-Item -Force -Recurse $dir
         }
     }
     Write-Host "$($emojis.champagne) -- CI Sync done!"

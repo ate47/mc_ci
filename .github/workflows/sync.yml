@@ -13,16 +13,19 @@ on:
 
 jobs:
   labels:
-    name: Sync 🔃
+    name: 🔃 Sync
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.GH_PAT }}
-      - name: Set bot values ⚙️
+      - name: ⚙️ Set git values
         run: |
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
-      - name: Sync 🔃
+          git config --global user.password ${{ secrets.GH_PAT }}
+      - name: 🔃 Sync
         shell: pwsh
         run: "scripts/sync.ps1 -IKnowWhatImDoing -File ${{ inputs.syncFile }}"
+      - name: 🌵 Clean
+        if: always()
+        run: |
+          git config --global user.password ""
