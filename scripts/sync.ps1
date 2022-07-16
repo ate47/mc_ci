@@ -66,7 +66,7 @@ try {
                 git checkout $Branch
                 git reset --hard
                 Write-Host "$($emojis.fire) ------ Remove .github directory"
-                Remove-Item -Force -Recurse ".github"
+                Remove-Item -Force -Recurse ".github" -ErrorAction Ignore > $null
                 Copy-Item $SyncDir ".github" -Recurse
                 Write-Host "$($emojis.gear) ------ Create sync commit"
                 # sync the config
