@@ -39,7 +39,7 @@ try {
     foreach ($Project in ($Projects.projects)) {
         Write-Host "$($emojis.sync) -- Sync project $($Project.id)..."
         
-        $url = "https://github.com/$($Project.id)"
+        $url = "git@github.com:$($Project.id).git"
         $dir = "tmp/$($Project.id)"
 
         
