@@ -74,7 +74,7 @@ try {
                 git commit -m $CommitMessage
                 Write-Host "$($emojis.rocket) ------ Push commit..."
                 # push the config
-                git remote set-url origin "https://$GitPushUser:$GitPassword@github.com/$($Project.id).git"
+                git remote set-url origin "https://$($GitPushUser):$($GitPassword)@github.com/$($Project.id).git"
                 git push
                 Write-Host "$($emojis.champagne) ---- Sync of branch $Branch done!"
                 Write-Host "-------------------------------------------"
