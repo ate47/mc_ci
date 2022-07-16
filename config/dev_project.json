@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "id": "ate47/github-test",
+      "branches": [
+        "refs/heads/master"
+      ]
+    }
+  ]
+}
