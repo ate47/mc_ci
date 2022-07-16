@@ -43,7 +43,8 @@ try {
             # clone the directory
             git clone $url $dir
 
-            foreach ($Branch in ($Project.branches)) {
+            foreach ($BranchRef in ($Project.branches)) {
+                $Branch = $BranchRef.Split("/")[-1]
                 Write-Host "$($emojis.construction) ---- Checkout to branch $Branch"
                 # checkout the branch and reset to it
                 git checkout $Branch
