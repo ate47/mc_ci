@@ -12,6 +12,7 @@ if (!$IKnowWhatImDoing) {
 
 $emojis = @{
     news = "`u{1F4F0}"
+    directory = "`u{1F4C2}"
     sync = "`u{1F503}"
     construction = "`u{1F3D7}`u{FE0F}"
     fire = "`u{1F525}"
@@ -29,8 +30,10 @@ try {
     $Projects = scripts/init.ps1 -File $File
 
     $CommitMessage = [string](Get-Content "config/sync_commit_message.txt")
+    $SyncDir = (Get-Item common.github).FullName
     
     Write-Host "$($emojis.news) Using commit message: '$CommitMessage'."
+    Write-Host "$($emojis.directory) Using sync directory: '$SyncDir'."
     Write-Host ""
 
     foreach ($Project in ($Projects.projects)) {
@@ -39,9 +42,12 @@ try {
         $url = "https://github.com/$($Project.id)"
         $dir = "tmp/$($Project.id)"
 
+        
+        $prevDirPwd = $PWD
         try {
             # clone the directory
             git clone $url $dir
+            Set-Location $dir
 
             foreach ($BranchRef in ($Project.branches)) {
                 $Branch = $BranchRef.Split("/")[-1]
@@ -50,11 +56,11 @@ try {
                 git checkout $Branch
                 git reset -hard
                 Write-Host "$($emojis.fire) ------ Remove .github directory"
-                Remove-Item -Force -Recurse "$dir/.github"
-                Copy-Item "common.github" "$dir/.github" -Recurse
+                Remove-Item -Force -Recurse ".github"
+                Copy-Item $SyncDir ".github" -Recurse
                 Write-Host "$($emojis.gear) ------ Create sync commit"
                 # sync the config
-                git add "$dir/.github"
+                git add ".github"
                 git commit -m $CommitMessage
                 Write-Host "$($emojis.rocket) ------ Push commit..."
                 # push the config
@@ -67,6 +73,7 @@ try {
         } finally {
             # clear space
             Remove-Item -Force -Recurse $dir
+            $prevDirPwd | Set-Location
         }
     }
     Write-Host "$($emojis.champagne) -- CI Sync done!"
