@@ -1,7 +1,8 @@
 param(
     # Project id
     [string]
-    $Id
+    $Id,
+    $File = "config/project.json"
 )
 
 if ($null -eq $Id -or "" -eq $Id) {
@@ -16,7 +17,7 @@ try {
     $base = (Get-Item $PSScriptRoot).parent
     Set-Location ($base.Fullname)
 
-    $Projects = scripts/init.ps1
+    $Projects = scripts/init.ps1 -File $File
 
     foreach ($Project in ($Projects.projects)) {
         if ($Project.id -eq $Id) {

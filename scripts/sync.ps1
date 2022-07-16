@@ -1,6 +1,8 @@
 param(
     [switch]
-    $IKnowWhatImDoing
+    $IKnowWhatImDoing,
+
+    $File = "config/project.json"
 )
 
 if (!$IKnowWhatImDoing) {
@@ -24,7 +26,7 @@ try {
     $base = (Get-Item $PSScriptRoot).parent
     Set-Location ($base.Fullname)
 
-    $Projects = scripts/init.ps1
+    $Projects = scripts/init.ps1 -File $File
 
     $CommitMessage = [string](Get-Content "config/sync_commit_message.txt")
     
@@ -37,29 +39,34 @@ try {
         $url = "https://github.com/$($Project.id)"
         $dir = "tmp/$($Project.id)"
 
-        # clone the directory
-        git clone $url $dir
+        try {
+            # clone the directory
+            git clone $url $dir
 
-        foreach ($Branch in ($Project.branches)) {
-            Write-Host "$($emojis.construction) ---- Checkout to branch $Branch"
-            # checkout the branch and reset to it
-            git checkout $Branch
-            git reset -hard
-            Write-Host "$($emojis.fire) ------ Remove .github directory"
-            Remove-Item -Force -Recurse "$dir/.github"
-            Copy-Item "common.github" "$dir/.github" -Recurse
-            Write-Host "$($emojis.gear) ------ Create sync commit"
-            # sync the config
-            git add "$dir/.github"
-            git commit -m $CommitMessage
-            Write-Host "$($emojis.rocket) ------ Push commit..."
-            # push the config
-            git push
-            Write-Host "$($emojis.champagne) ---- Sync of branch $Branch done!"
+            foreach ($Branch in ($Project.branches)) {
+                Write-Host "$($emojis.construction) ---- Checkout to branch $Branch"
+                # checkout the branch and reset to it
+                git checkout $Branch
+                git reset -hard
+                Write-Host "$($emojis.fire) ------ Remove .github directory"
+                Remove-Item -Force -Recurse "$dir/.github"
+                Copy-Item "common.github" "$dir/.github" -Recurse
+                Write-Host "$($emojis.gear) ------ Create sync commit"
+                # sync the config
+                git add "$dir/.github"
+                git commit -m $CommitMessage
+                Write-Host "$($emojis.rocket) ------ Push commit..."
+                # push the config
+                git push
+                Write-Host "$($emojis.champagne) ---- Sync of branch $Branch done!"
+                Write-Host "-------------------------------------------"
+            }
+            Write-Host "$($emojis.champagne) -- Sync of project $($Project.id) done!"
             Write-Host "-------------------------------------------"
+        } finally {
+            # clear space
+            Remove-Item -Force -Recurse $dir
         }
-        Write-Host "$($emojis.champagne) -- Sync of project $($Project.id) done!"
-        Write-Host "-------------------------------------------"
     }
     Write-Host "$($emojis.champagne) -- CI Sync done!"
 } finally {

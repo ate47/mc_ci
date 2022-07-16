@@ -3,7 +3,9 @@ param(
   [string]
   $Id,
 
-  $Editor = "vim"
+  $Editor = "vim",
+
+  $File = "config/project.json"
 )
 
 if ($null -eq $Id -or "" -eq $Id) {
@@ -21,7 +23,7 @@ try {
     $Edited = $false
     $Branches = $null
 
-    $Projects = scripts/init.ps1
+    $Projects = scripts/init.ps1 - File $File
     
     $ProjectsArray = @(($Projects.projects | % {
         $Project = $_
@@ -73,11 +75,11 @@ $(($Heads | % {
     if ($null -eq $ProjectsArray -or $null -eq $ProjectsArray[0]) {
         ConvertTo-Json ([PSCustomObject]@{
             "projects" =  @($Created)
-        })  -Depth 100 > config/project.json
+        })  -Depth 100 > $File
     } else {
         ConvertTo-Json ([PSCustomObject]@{
             "projects" =  @($ProjectsArray) + $Created
-        })  -Depth 100 > config/project.json
+        })  -Depth 100 > $File
     }
 } finally {
   $prevPwd | Set-Location

@@ -1,7 +1,8 @@
 param(
     # Force projects json create, might overwrite the previous file
     [switch]
-    $Force
+    $Force,
+    $File = "config/project.json"
 )
 
 $prevPwd = $PWD
@@ -11,13 +12,13 @@ try {
     Set-Location ($base.Fullname)
 
 
-    if (!(Test-Path "config/project.json") -or $Force) {
+    if (!(Test-Path $File) -or $Force) {
         @{
             "projects" = @()
-        } | ConvertTo-Json > config/project.json
+        } | ConvertTo-Json > $File
     }
 
-    return Get-Content config/project.json | ConvertFrom-Json
+    return Get-Content $File | ConvertFrom-Json
 } finally {
   $prevPwd | Set-Location
 }

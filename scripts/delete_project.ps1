@@ -1,7 +1,8 @@
 param(
-  # Project id
-  [string]
-  $Id
+    # Project id
+    [string]
+    $Id,
+    $File = "config/project.json"
 )
 
 if ($null -eq $Id -or "" -eq $Id) {
@@ -15,7 +16,7 @@ try {
     $base = (Get-Item $PSScriptRoot).parent
     Set-Location ($base.Fullname)
 
-    $Projects = scripts/init.ps1
+    $Projects = scripts/init.ps1 -File $File
 
     $ProjectsArray =@($Projects.projects | % {
         $Project = $_
@@ -27,11 +28,11 @@ try {
     if ($null -eq $ProjectsArray -or $null -eq $ProjectsArray[0]) {
         @{
             "projects" =  @()
-        } | ConvertTo-Json -Depth 100 > config/project.json
+        } | ConvertTo-Json -Depth 100 > $File
     } else {
         @{
             "projects" =  @($ProjectsArray)
-        } | ConvertTo-Json -Depth 100 > config/project.json
+        } | ConvertTo-Json -Depth 100 > $File
     }
 } finally {
   $prevPwd | Set-Location
