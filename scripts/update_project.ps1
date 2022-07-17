@@ -23,7 +23,7 @@ try {
     $Edited = $false
     $Branches = $null
 
-    $Projects = scripts/init.ps1 - File $File
+    $Projects = scripts/init.ps1 -File $File
     
     $ProjectsArray = @(($Projects.projects | % {
         $Project = $_
