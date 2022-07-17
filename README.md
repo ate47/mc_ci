@@ -19,6 +19,8 @@ Project to test/sync ci to all my mods
   - [`project.json` schema](#projectjson-schema)
   - [Scripts](#scripts)
   - [Sync process](#sync-process)
+    - [Using workflow](#using-workflow)
+    - [Using command line](#using-command-line)
 
 # Minecraft CI
 
@@ -53,7 +55,18 @@ Config file to store the projects.
 
 all files in the `common.github` directory will be sync into the branches/projects with one commit with the message described in `sync_commit_message.txt`.
 
-By default it should be used using the `.github/workflows/sync.yml` workflow, but you can run the command to sync by using this command:
+### Using workflow
+
+By default it should be used using the `.github/workflows/sync.yml` workflow.
+
+for forks, 2 secrets are required to config the account to push the sync commits, this account should have at least the repository and workflows permissions on the project's repositories.
+
+- `GH_PAT`: Github token/password.
+- `GH_USERNAME`: Github username.
+
+You can run the command to sync by using this command:
+
+### Using command line
 
 ```powershell
 scripts/sync.ps1 `
