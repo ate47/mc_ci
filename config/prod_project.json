@@ -16,7 +16,8 @@
                          "branches":  [
                                           "refs/heads/1.18-fabric",
                                           "refs/heads/1.18-forge",
-                                          "refs/heads/1.19-fabric"
+                                          "refs/heads/1.19-fabric",
+                                          "refs/heads/1.19.2-forge"
                                       ]
                      },
                      {
