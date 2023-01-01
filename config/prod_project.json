@@ -34,7 +34,9 @@
                      {
                          "id":  "ate47/AdvancedCreativeTab",
                          "branches":  [
-                                          "refs/heads/1.18-forge"
+                                          "refs/heads/1.18-forge",
+                                          "refs/heads/1.19-forge",
+                                          "refs/heads/1.19.3-forge"
                                       ]
                      }
                  ]
