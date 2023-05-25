@@ -3,14 +3,12 @@
                      {
                          "id":  "ate47/Xray",
                          "branches":  [
-                                          "refs/heads/fabric-1.17-v2",
-                                          "refs/heads/fabric-1.18-v2",
                                           "refs/heads/fabric-1.19",
                                           "refs/heads/fabric-1.19.3",
-                                          "refs/heads/forge-1.17-v2",
-                                          "refs/heads/forger-1.18-v2",
+                                          "refs/heads/fabric-1.19.4",
                                           "refs/heads/forge-1.19",
-                                          "refs/heads/forge-1.19.3"
+                                          "refs/heads/forge-1.19.3",
+                                          "refs/heads/forge-1.19.4"
                                       ]
                      },
                      {
